@@ -6,6 +6,9 @@ Well, you know what to do...
 
 or to re-run everything (including DB content) from scratch
 
-```docker-compose up -d --force-recreate --build```
+```
+docker-compose down
+docker-compose up -d --force-recreate --build
+```
 
 Make sure host machine doesn't mind regarding forwarding ports 3000 and 3001 otherwise edit respective numbers in the `docker-compose.yml` config.
