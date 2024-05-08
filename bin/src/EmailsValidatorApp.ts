@@ -80,10 +80,6 @@ class App {
   }
   
   private async enqueueTasks(): Promise<void> {
-    if (this.runningTasksCounter) {
-      return;
-    }
-
     while (this.runningTasksCounter < MAX_THREADS_NUM) {
       this.runningTasksCounter++;
       const record: Maybe<{ _id: string, email: string }> = await EmailsValidationQueueModel
