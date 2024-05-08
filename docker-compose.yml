@@ -1,0 +1,90 @@
+services:
+
+  nginx:
+    image: nginx:stable-alpine
+    command: nginx -g 'daemon off;'
+    ports:
+      - 3001:3001
+    depends_on:
+      - api
+    networks:
+      - jarosh
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  mongodb:
+    image: mongo:latest
+    restart: always
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: echo "try { rs.status(); } catch(err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'host.docker.internal:27017'}]}); }" | mongosh --port 27017
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
+    environment:
+      MONGO_INITDB_DATABASE: app
+    ports:
+      - 27017:27017
+    networks:
+      - jarosh
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  api:
+    build:
+      context: ./
+      dockerfile: ./api/Dockerfile
+    command: npm run watch
+    environment:
+      - PORT=3001
+      - MONGODB_URL=mongodb://mongodb:27017/app?retryWrites=true&loadBalanced=false&replicaSet=rs0&readPreference=primary&serverSelectionTimeoutMS=5000&connectTimeoutMS=10000
+    deploy:
+      replicas: 3
+    depends_on:
+      - mongodb
+    networks:
+      - jarosh
+    volumes:
+      - ./lib:/home/node/lib
+      - ./api/src:/home/node/app/src
+      - ./api/nodemon.json:/home/node/app/nodemon.json
+
+  bin:
+    build:
+      context: ./
+      dockerfile: ./bin/Dockerfile
+    command: npm run watch
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/app?retryWrites=true&loadBalanced=false&replicaSet=rs0&readPreference=primary&serverSelectionTimeoutMS=5000&connectTimeoutMS=10000
+      - MAX_THREADS_NUM=10
+    deploy:
+      replicas: 1
+    depends_on:
+      - mongodb
+    networks:
+      - jarosh
+    volumes:
+      - ./lib:/home/node/lib
+      - ./bin/src:/home/node/app/src
+      - ./bin/nodemon.json:/home/node/app/nodemon.json
+
+  web:
+    build:
+      context: ./
+      dockerfile: ./web/Dockerfile
+    command: npm run start
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
+    networks:
+      - jarosh
+    volumes:
+      - ./api/src:/home/node/web/src
+
+networks:
+  jarosh:

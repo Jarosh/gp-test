@@ -1,0 +1,57 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+  background-color: #EEE;
+}
+
+.App-header {
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-content {
+  flex: 1;
+  overflow: auto;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App-logo {
+  height: 80%;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-textarea {
+  display: flex;
+  flex: 1;
+}
+
+.App-textarea > * {
+  width: 100%;
+}
+
+.App-textarea-buttons {
+  width: 15rem;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

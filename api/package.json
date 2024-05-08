@@ -1,0 +1,35 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "start": "NODE_PATH=./build node build/index.js",
+    "watch": "nodemon src/index.ts --exec \"npm run lint && ts-node\"",
+    "lint": "eslint ./src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jarosh",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/dotenv-safe": "^8.1.6",
+    "@types/express": "^4.17.21",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@app/lib": "file:../lib",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv-safe": "^9.1.0",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.3"
+  }
+}

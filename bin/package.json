@@ -1,0 +1,31 @@
+{
+  "name": "bin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "start": "NODE_PATH=./build node build/index.js",
+    "watch": "nodemon src/index.ts --exec \"npm run lint && ts-node\"",
+    "lint": "eslint ./src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jarosh",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/dotenv-safe": "^8.1.6",
+    "@types/lodash": "^4.17.1",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@app/lib": "file:../lib",
+    "dotenv-safe": "^9.1.0",
+    "lodash": "^4.17.21",
+    "mongoose": "^8.3.3"
+  }
+}
