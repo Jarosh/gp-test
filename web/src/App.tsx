@@ -56,7 +56,7 @@ function App(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    setFetchTimeout(Number(0));
+    setFetchTimeout(new Number(0)); // eslint-disable-line no-new-wrappers
   }, []);
 
   useEffect(() => {
@@ -89,7 +89,7 @@ function App(): JSX.Element {
               });
               setEmailsQueue(updatedEmailsQueue);
             }
-            setFetchTimeout(Number(5 * 1000));
+            setFetchTimeout(new Number(5 * 1000)); // eslint-disable-line no-new-wrappers
             setMaxCheckedAt(max(json
               .filter((i: IEmailsQueueItem): boolean => !!i.checkedAt)
               .map((i: IEmailsQueueItem): Date => new Date(i.checkedAt))
@@ -97,7 +97,7 @@ function App(): JSX.Element {
           })
           .catch((err) => {
             alert('Oops! Data was not loaded. Retrying, please wait...');
-            setFetchTimeout(Number(15 * 1000));
+            setFetchTimeout(new Number(15 * 1000)); // eslint-disable-line no-new-wrappers
           });
       }, fetchTimeout.valueOf());
     return () => {
@@ -124,7 +124,7 @@ function App(): JSX.Element {
         .then(async (res) => {
           setEmailsInput('');
           setIsSending(false);
-          setFetchTimeout(new Number(0));
+          setFetchTimeout(new Number(0)); // eslint-disable-line no-new-wrappers
         })
         .catch((err) => {
           alert('Oops! Shh... Unexpected things happen. Try again later...');
