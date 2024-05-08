@@ -12,3 +12,5 @@ docker-compose up -d --force-recreate --build
 ```
 
 Make sure host machine doesn't mind regarding forwarding ports 3000 and 3001 otherwise edit respective numbers in the `docker-compose.yml` config.
+
+Once everything is fine, go to the http://locxalhost:3000/
