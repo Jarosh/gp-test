@@ -40,6 +40,7 @@ app.use((req: Request, res: Response, next: () => void) => {
         maxAge: 1000 * 60 * 60 * 24 * 30,
         httpOnly: true,
         sameSite: 'none',
+        secure: true,
       },
     );
     req.cookies.sessuid = newSessuid;
