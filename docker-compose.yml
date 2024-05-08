@@ -4,7 +4,7 @@ services:
     image: nginx:stable-alpine
     command: nginx -g 'daemon off;'
     ports:
-      - 3001:3001
+      - 80:80
     depends_on:
       - api
     networks:

@@ -63,7 +63,7 @@ function App(): JSX.Element {
     const timeout = (typeof fetchTimeout === 'undefined')
       ? undefined
       : setTimeout(() => {
-        fetch(`http://localhost:3001/api/v1/emails/validator${maxCheckedAt ? `?tsFrom=${maxCheckedAt}` : ''}`, {
+        fetch(`http://localhost/api/v1/emails/validator${maxCheckedAt ? `?tsFrom=${maxCheckedAt}` : ''}`, {
           method: 'GET',
           credentials: 'include',
           headers: {
@@ -107,7 +107,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     if (isSending) {
-      fetch('http://localhost:3001/api/v1/emails/validator', {
+      fetch('http://localhost/api/v1/emails/validator', {
         method: 'POST',
         credentials: 'include',
         headers: {
